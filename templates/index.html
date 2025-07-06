@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Smart Image Compressor</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Image Compressor 🖼️</h1>
+
+      <form method="POST" enctype="multipart/form-data">
+        <label>Select Image:</label>
+        <input type="file" name="file" required /><br />
+
+        <label>Target Size (in MB):</label>
+        <input type="number" name="size" min="1" required /><br />
+
+        <button type="submit">🔽 Compress & Download</button>
+        {% if download_url %}
+        <a class="download-btn" href="{{ download_url }}"
+          >⬇️ Click here to download compressed image</a
+        >
+        {% endif %}
+      </form>
+
+      {% if original and compressed %}
+      <div class="comparison">
+        <div>
+          <h3>Original</h3>
+          <img
+            src="{{ url_for('static', filename=original) }}"
+            alt="Original Image"
+          />
+        </div>
+        <div>
+          <h3>Compressed ✅</h3>
+          <img
+            src="{{ url_for('static', filename=compressed) }}"
+            alt="Compressed Image"
+          />
+        </div>
+      </div>
+      {% endif %} {% if done %}
+      <div class="done"><span class="tick">✔</span> Compression Done!</div>
+      {% endif %}
+    </div>
+
+    <div class="faq">
+      <h3>❓ Need Help?</h3>
+      <ul>
+        <li>💡 Upload images only (JPG/PNG).</li>
+        <li>📦 Use reasonable target sizes (1–10 MB).</li>
+        <li>🔒 Files are not stored permanently.</li>
+      </ul>
+    </div>
+  </body>
+</html>
